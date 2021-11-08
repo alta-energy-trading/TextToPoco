@@ -1,0 +1,1 @@
+Core project for transforming CSV's and JSON to POCOs.
