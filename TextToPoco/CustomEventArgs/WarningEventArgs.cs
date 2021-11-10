@@ -8,6 +8,7 @@ namespace TextToPoco
         public WarningEventArgs(string message) : base()
         {
             Message = message;
+
         }
     }
 }

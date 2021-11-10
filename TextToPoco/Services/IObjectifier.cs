@@ -6,7 +6,7 @@ namespace TextToPoco
     public interface IObjectifier
     {
         IEnumerable<T> Deserialize<T>(
-            string fullPath, string delimiter = "|")
+            DeserializeArgs args)
              where T : class, IDirty, new();
 
         List<Exception> Exceptions { get; set; }

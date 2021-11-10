@@ -6,7 +6,7 @@ namespace TextToPoco
 {
     public interface IClientCleaner
     {
-        Task<IClean> Clean(IDirty dirty);
+        Task<IEnumerable<IClean>> Clean(IDirty dirty);
         List<string> Keys { get; set; }
         Type CleanType { get; set; }
     }
