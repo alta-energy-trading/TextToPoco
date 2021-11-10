@@ -7,7 +7,7 @@ namespace TextToPoco
         where TSource : IDirty
         where TTarget : IClean
     {
-        Task<IEnumerable<IClean>> Clean(IDirty dirty);
+        Task<IEnumerable<TTarget>> Clean(TSource dirty);
         List<string> Keys { get; set; }
     }
 }
