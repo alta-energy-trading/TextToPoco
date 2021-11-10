@@ -8,6 +8,6 @@ namespace TextToPoco
         public DeserializeArgs DeserializeArgs { get; set; }
         public List<string> Keys { get; set; }
 
-        public List<IClientCleaner> Cleaners { get; set; }
+        public List<IClientCleaner<IDirty, IClean>> Cleaners { get; set; }
     }
 }
