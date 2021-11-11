@@ -3,11 +3,9 @@ using System.Threading.Tasks;
 
 namespace TextToPoco
 {
-    public interface IClientCleaner<TSource, TTarget> 
-        where TSource : IDirty
-        where TTarget : IClean
+    public interface IClientCleaner<IDirty, IClean> 
     {
-        Task<IEnumerable<TTarget>> Clean(TSource dirty);
+        Task<IEnumerable<IClean>> Clean(IDirty dirty);
         List<string> Keys { get; set; }
     }
 }
