@@ -7,8 +7,8 @@ namespace TextToPoco
     {
         event EventHandler<WarningEventArgs> Warning;
         void Run<T>(IDbContext context, IClientImporter importerArg) 
-            where T : class, IDirty, new();
-        void Run<T>(IDbContext context, IClientImporter importerArg, IEnumerable<IClientCleaner<IDirty, IClean>> cleaners) 
-            where T : class, IDirty, new();
+            where T : class, new();
+        void Run<T>(IDbContext context, IClientImporter importerArg, IEnumerable<IClientCleaner> cleaners) 
+            where T : class, new();
     }
 }

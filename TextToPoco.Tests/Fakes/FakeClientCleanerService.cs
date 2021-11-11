@@ -5,7 +5,7 @@ using TextToPoco;
 
 namespace TextToPoco.Tests.Fakes
 {
-    public class FakeClientCleanerService : IClientCleaner<FakeDirtyObject, FakeCleanObject>
+    public class FakeClientCleanerService : IClientCleaner
     {
         public List<string> Keys { get; set; }
         public Type CleanType { get; set; }
@@ -19,10 +19,10 @@ namespace TextToPoco.Tests.Fakes
             CleanType = typeof(FakeCleanObject);
         }
 
-        public Task<IEnumerable<FakeCleanObject>> Clean(FakeDirtyObject dirty)
+        public Task<IEnumerable<TTarget>> Clean<TSource, TTarget>(TSource dirty)
         {
             var result = new List<FakeCleanObject> { new FakeCleanObject() };
-            return Task.FromResult((IEnumerable<FakeCleanObject>)result);
+            return Task.FromResult((IEnumerable<TTarget>)result);
         }
     }
 }

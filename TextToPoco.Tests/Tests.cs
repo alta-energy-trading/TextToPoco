@@ -11,13 +11,10 @@ namespace TextToPoco.Tests
         public void Types()
         {
             FakeClientCleanerService fakeClientCleanerService = new FakeClientCleanerService();
-            List<IClientCleaner<IDirty, IClean>> cleaners = new List<IClientCleaner<IDirty, IClean>>
+            IEnumerable<IClientCleaner> cleaners = new List<IClientCleaner>
             {
-                fakeClientCleanerService as IClientCleaner<IDirty, IClean>,
+                (IClientCleaner)fakeClientCleanerService,
             };
-
-            Assert.Collection<IClientCleaner<IDirty, IClean>>(cleaners,
-                c => Assert.True(true));
         }
     }
 }

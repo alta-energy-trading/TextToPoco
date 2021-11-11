@@ -7,7 +7,7 @@ namespace TextToPoco
     {
         IEnumerable<T> Deserialize<T>(
             DeserializeArgs args)
-             where T : class, IDirty, new();
+             where T : class, new();
 
         List<Exception> Exceptions { get; set; }
     }
