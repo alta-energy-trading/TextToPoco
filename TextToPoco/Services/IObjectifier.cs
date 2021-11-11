@@ -6,7 +6,7 @@ namespace TextToPoco
     public interface IObjectifier
     {
         IEnumerable<T> Deserialize<T>(
-            DeserializeArgs args)
+            TextToPocoArgs args)
              where T : class, new();
 
         List<Exception> Exceptions { get; set; }
