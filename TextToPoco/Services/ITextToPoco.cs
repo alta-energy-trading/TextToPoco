@@ -8,8 +8,5 @@ namespace TextToPoco
         event EventHandler<WarningEventArgs> Warning;
         IEnumerable<T> Run<T>(IDbContext context, TextToPocoArgs args) 
             where T : class, new();
-
-        IEnumerable<IEnumerable<T>> BatchRun<T>(IDbContext context, TextToPocoArgs args)
-            where T : class, new();
     }
 }
