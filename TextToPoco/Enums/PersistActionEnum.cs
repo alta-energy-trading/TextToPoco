@@ -4,6 +4,7 @@
     {
         Merge,
         Replace,
+        Add,
         None
     }
 }
