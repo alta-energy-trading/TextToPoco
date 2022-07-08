@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TextToPoco\TextToPoco.Core.csproj" />
+    <ProjectReference Include="..\PocoLoco\PocoLoco.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,16 +1,32 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.357
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextToPoco", "TextToPoco\TextToPoco.csproj", "{D4A3F00D-3922-4272-A8D8-9DB29198CAA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextToPoco.Core", "TextToPoco\TextToPoco.Core.csproj", "{D4A3F00D-3922-4272-A8D8-9DB29198CAA9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ED943431-1F2C-4E4A-8934-986D07B67E6B}"
 	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
+		TextToPoco\README.md = TextToPoco\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextToPoco.Tests", "TextToPoco.Tests\TextToPoco.Tests.csproj", "{592ECDE1-4C02-495B-B3B5-75E0A309F603}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextToPoco.Tests", "TextToPoco.Tests\TextToPoco.Tests.csproj", "{592ECDE1-4C02-495B-B3B5-75E0A309F603}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvToPoco", "CsvToPoco\CsvToPoco.csproj", "{42404485-458F-4E53-AF84-F83D2EDB5D77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsvToPoco.Tests", "CsvToPoco.Tests\CsvToPoco.Tests.csproj", "{BCC8905B-01A6-4256-B2F9-CA8B47556DF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextToPoco.Services", "TextToPoco.Services\TextToPoco.Services.csproj", "{5CB53930-1524-4ABE-988F-DE212C935996}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocoLoco", "PocoLoco\PocoLoco.csproj", "{0EE270AB-B966-4CE2-81EF-F71629540E92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PocoLoco.Tests", "PocoLoco.Tests\PocoLoco.Tests.csproj", "{B6B2A81D-C3C3-4992-8BF0-D2CE1C94F1E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonToPoco", "JsonToPoco\JsonToPoco.csproj", "{22FA4318-5BA1-4F82-8D5E-9D7D8E805590}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonToPoco.Tests", "JsonToPoco.Tests\JsonToPoco.Tests.csproj", "{FFDCD5DB-D719-43DB-A8DB-D1CD27E54AAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextToPoco.Data", "TextToPoco.Data\TextToPoco.Data.csproj", "{4B6C2411-BFEF-45BF-B2A8-DA0724779582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,6 +42,38 @@ Global
 		{592ECDE1-4C02-495B-B3B5-75E0A309F603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{592ECDE1-4C02-495B-B3B5-75E0A309F603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{592ECDE1-4C02-495B-B3B5-75E0A309F603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42404485-458F-4E53-AF84-F83D2EDB5D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42404485-458F-4E53-AF84-F83D2EDB5D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42404485-458F-4E53-AF84-F83D2EDB5D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42404485-458F-4E53-AF84-F83D2EDB5D77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCC8905B-01A6-4256-B2F9-CA8B47556DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCC8905B-01A6-4256-B2F9-CA8B47556DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCC8905B-01A6-4256-B2F9-CA8B47556DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCC8905B-01A6-4256-B2F9-CA8B47556DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CB53930-1524-4ABE-988F-DE212C935996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CB53930-1524-4ABE-988F-DE212C935996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CB53930-1524-4ABE-988F-DE212C935996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CB53930-1524-4ABE-988F-DE212C935996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE270AB-B966-4CE2-81EF-F71629540E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE270AB-B966-4CE2-81EF-F71629540E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE270AB-B966-4CE2-81EF-F71629540E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE270AB-B966-4CE2-81EF-F71629540E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B2A81D-C3C3-4992-8BF0-D2CE1C94F1E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B2A81D-C3C3-4992-8BF0-D2CE1C94F1E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B2A81D-C3C3-4992-8BF0-D2CE1C94F1E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B2A81D-C3C3-4992-8BF0-D2CE1C94F1E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22FA4318-5BA1-4F82-8D5E-9D7D8E805590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22FA4318-5BA1-4F82-8D5E-9D7D8E805590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22FA4318-5BA1-4F82-8D5E-9D7D8E805590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22FA4318-5BA1-4F82-8D5E-9D7D8E805590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDCD5DB-D719-43DB-A8DB-D1CD27E54AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFDCD5DB-D719-43DB-A8DB-D1CD27E54AAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDCD5DB-D719-43DB-A8DB-D1CD27E54AAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFDCD5DB-D719-43DB-A8DB-D1CD27E54AAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B6C2411-BFEF-45BF-B2A8-DA0724779582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B6C2411-BFEF-45BF-B2A8-DA0724779582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B6C2411-BFEF-45BF-B2A8-DA0724779582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B6C2411-BFEF-45BF-B2A8-DA0724779582}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

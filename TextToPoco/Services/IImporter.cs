@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TextToPoco
+namespace TextToPoco.Core
 {
     public interface IImporter
     {
         public List<Exception> Exceptions { get; set; }
-        IEnumerable<IEnumerable<T>> Import<T>(IDbContext context, TextToPocoArgs args, int batchSize) where T : class, new();
-        IEnumerable<T> Import<T>(IDbContext context, TextToPocoArgs args) where T : class, new();
+        IEnumerable<IEnumerable<T>> Import<T>(IDbContext context, ITextToPocoArgs args, int batchSize) where T : class, new();
+        IEnumerable<T> Import<T>(IDbContext context, ITextToPocoArgs args) where T : class, new();
     }
 }

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TextToPoco
+namespace TextToPoco.Core
 {
     public interface ITextToPoco
     {
         event EventHandler<WarningEventArgs> Warning;
-        IEnumerable<IEnumerable<T>> Run<T>(IDbContext context, TextToPocoArgs args, int batchSize) 
+        IEnumerable<IEnumerable<T>> Run<T>(IDbContext context, ITextToPocoArgs args, int batchSize) 
             where T : class, new();
 
-        IEnumerable<T> Run<T>(IDbContext context, TextToPocoArgs args)
+        IEnumerable<T> Run<T>(IDbContext context, ITextToPocoArgs args)
             where T : class, new();
     }
 }

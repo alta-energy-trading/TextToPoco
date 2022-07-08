@@ -1,4 +1,4 @@
-﻿namespace TextToPoco
+﻿namespace TextToPoco.Core
 { 
     public interface IDbContext
     {

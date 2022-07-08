@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Alta Trading</Authors>
+    <Description>Transforms entities into other entities</Description>
+    <Version>1.0.13</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TextToPoco.Services\TextToPoco.Services.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist \\arctargoprod\Alta Packages (xcopy $(ProjectDir)bin\Release \\arctargoprod\Alta Packages /Y)" />
+  </Target>
+
+</Project>

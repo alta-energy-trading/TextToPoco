@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TextToPoco
+namespace TextToPoco.Core
 {
     public class WarningEventArgs : EventArgs
     {
