@@ -49,9 +49,9 @@ namespace TextToPoco.Services
             var beginMessage = "";
             foreach (var error in warnings)
             {
-                if (beginMessage != error.Message.Substring(0, 100))
+                if (beginMessage != error.Message)
                 {
-                    beginMessage = error.Message.Substring(0, 100);
+                    beginMessage = error.Message;
                     OnWarning(new WarningEventArgs(error.Message));
                 }
             }

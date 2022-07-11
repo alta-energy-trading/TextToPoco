@@ -1,5 +1,5 @@
 ## TextToPoco
-A core library for importing from a stream to a database 
+A set of dotnet core libraries for importing from text to a database 
 
 See how `TextToPoco` fits in to Alta's development landscape in the [app graph](https://github.com/alta-energy-trading/Documentation/blob/main/AppFlowAndDependency.pdf)
 

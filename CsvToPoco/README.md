@@ -1,5 +1,5 @@
 ## CsvToPoco
-A dotnet library for importing from a stream to a database  
+A dotnet library for importing from CSV to a database  
 
 See how `CsvToPoco` fits in to Alta's development landscape in the [app graph](https://github.com/alta-energy-trading/Documentation/blob/main/AppFlowAndDependency.pdf)
 
@@ -30,7 +30,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 The DbContext in the client app needs to implement (the empty) IDbContext  
 `public class MyAppContext : DbContext, IDbContext`  
 
-If your project has a seperate core project, there is a core project package, [TextToPoco](https://github.com/alta-energy-trading/TextToPoco) where the required interfaces are defined  
+If your project has a seperate core project that you want to keep free of unnecessary dependencies, there is a core project, [TextToPoco.Core](https://github.com/alta-energy-trading/TextToPoco/TextToPoco.Core) where the required interfaces are defined  
 `PM> Install-Package TextToPoco`  
 
 #### Using CsvToPoco
@@ -57,9 +57,9 @@ using (var scope = _services.CreateScope())
 CsvToPoco requires you to subscribe to the warnings event
 `csvToPoco.Warning += CsvToPoco_Warning;`  
 
-Create a `TextToPocoArgs` object to configure the CSV reader, and pass it to the `Run` method
+Create a `CsvToPocoArgs` object to configure the CSV reader, and pass it to the `Run` method
 ```
-TextToPocoArgs args = new TextToPocoArgs
+CsvToPocoArgs args = new CsvToPocoArgs
 {
     Stream = new FileStream(e.FullPath, FileMode.Open),
     Delimiter = "|",
@@ -69,7 +69,8 @@ TextToPocoArgs args = new TextToPocoArgs
         nameof(MyObject.PrimaryKey1),
         nameof(MyObject.PrimaryKey2)
     },
-    PersistAction = PersistActionEnum.Merge // Merge, Replace (for batches, use Alta.Utility.DbContextExtensions.Truncate and then Add), Add or None
+    PersistAction = PersistActionEnum.Merge // Merge, Replace (for batches, use Alta.Utility.DbContextExtensions.Truncate and then Add), Add or None,
+    ClassMap = new MyObjectClassMap()       // CsvHelper class map
 };
 
 var records = csvToPoco.Run<MyObject>(context, args);
@@ -90,7 +91,7 @@ foreach(var batch in csvToPoco.Run<MyObject>(context, args, 500000))
 }
 ```
 
-The model needs to be configured using [CsvHelper attributes](https://joshclose.github.io/CsvHelper/examples/configuration/attributes/)  
+The CSV to POCO mapping can be configured using [CsvHelper attributes](https://joshclose.github.io/CsvHelper/examples/configuration/attributes/)  
 ```
 using CsvHelper.Configuration.Attributes;
 
@@ -104,6 +105,7 @@ public class MyObject
     public string PrimaryKey2 { get; set; }
 }
 ```  
+Or you can create a ClassMap and pass it with the CsvToPocoArgs object
 
 The records can then be further transformed using [PocoLoco](https://github.com/alta-energy-trading/PocoLoco)  
 
