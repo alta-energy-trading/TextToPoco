@@ -39,7 +39,9 @@ namespace CsvToPoco
             using(StreamReader reader = new StreamReader(args.Stream))
             using (var csv = new CsvReader(reader, config))
             {
-                csv.Context.RegisterClassMap(csvArgs.ClassMap);
+                if (csvArgs.ClassMap != null)
+                    csv.Context.RegisterClassMap(csvArgs.ClassMap);
+
                 tempList.AddRange(csv.GetRecords<T>());
                 return tempList;
             }
@@ -59,7 +61,9 @@ namespace CsvToPoco
             using (StreamReader reader = new StreamReader(args.Stream))
             using (var csv = new CsvReader(reader, config))
             {
-                csv.Context.RegisterClassMap(csvArgs.ClassMap);
+                if(csvArgs.ClassMap != null)
+                    csv.Context.RegisterClassMap(csvArgs.ClassMap);
+
                 List<T> result = new List<T>();
                 foreach (var record in csv.GetRecords<T>())
                 {
