@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Runtime.CompilerServices;
-using TextToPoco.Core;
-using TextToPoco.Data.Extensions;
 
-[assembly: InternalsVisibleTo("PocoLoco.Tests")]
-namespace PocoLoco
+[assembly: InternalsVisibleTo("CsvToPoco.Tests")]
+namespace CsvToPoco
 {
     internal class CleanerService : ICleaner
     {

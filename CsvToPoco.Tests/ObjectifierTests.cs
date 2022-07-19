@@ -2,7 +2,7 @@ using CsvToPoco.Tests.Fakes;
 using CsvToPoco.Tests.Fakes.ClassMaps;
 using System.IO;
 using System.Linq;
-using TextToPoco.Core;
+using CsvToPoco;
 using Xunit;
 
 namespace CsvToPoco.Tests

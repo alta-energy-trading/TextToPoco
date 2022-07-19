@@ -30,7 +30,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 The DbContext in the client app needs to implement (the empty) IDbContext  
 `public class MyAppContext : DbContext, IDbContext`  
 
-If your project has a seperate core project that you want to keep free of unnecessary dependencies, there is a core project, [TextToPoco.Core](https://github.com/alta-energy-trading/TextToPoco/TextToPoco.Core) where the required interfaces are defined  
+If your project has a seperate core project that you want to keep free of unnecessary dependencies, there is a core project, [CsvToPoco](https://github.com/alta-energy-trading/TextToPoco/CsvToPoco) where the required interfaces are defined  
 `PM> Install-Package TextToPoco`  
 
 #### Using CsvToPoco

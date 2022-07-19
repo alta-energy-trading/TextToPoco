@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TextToPoco.Core;
+using CsvToPoco;
 
 namespace CsvToPoco.Tests.Fakes
 {

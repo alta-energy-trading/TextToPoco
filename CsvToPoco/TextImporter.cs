@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using TextToPoco.Core;
-using TextToPoco.Data.Extensions;
 
-[assembly: InternalsVisibleTo("JsonToPoco.Tests")]
 [assembly: InternalsVisibleTo("CsvToPoco.Tests")]
-namespace TextToPoco.Services
+namespace CsvToPoco
 {
     public class TextImporter : IImporter
     {

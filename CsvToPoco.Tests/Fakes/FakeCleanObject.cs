@@ -1,4 +1,5 @@
-﻿
+﻿using TextToPoco;
+
 namespace CsvToPoco.Tests.Fakes
 {
     public class FakeCleanObject

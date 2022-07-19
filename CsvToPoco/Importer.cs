@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TextToPoco.Core;
 
-namespace TextToPoco.Services
+namespace CsvToPoco
 {
     public class Importer : ITextToPoco
     {

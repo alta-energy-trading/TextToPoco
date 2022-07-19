@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CsvToPoco\CsvToPoco.csproj" />
-    <ProjectReference Include="..\TextToPoco.Services\TextToPoco.Services.csproj" />
   </ItemGroup>
 
 </Project>

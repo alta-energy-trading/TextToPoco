@@ -5,17 +5,14 @@
     <Authors>Alta Trading</Authors>
     <Description>Turns CSV files into POCO's, cleans and persists</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.18</Version>
+    <Version>2.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="27.1.1" />
+    <PackageReference Include="EFCore.BulkExtensions" Version="5.4.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.13" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TextToPoco.Services\TextToPoco.Services.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

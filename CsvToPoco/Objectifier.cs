@@ -5,7 +5,6 @@ using System.IO;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Runtime.CompilerServices;
-using TextToPoco.Core;
 using System.Linq;
 using CsvToPoco.CustomTypeConverters;
 

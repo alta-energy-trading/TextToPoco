@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace PocoLoco.Extensions
+namespace CsvToPoco.Extensions
 {
-    public static class CsvToPocoServiceCollection
+    public static class PocoLocoServiceCollection
     {
         public static IServiceCollection AddPocoLoco(this IServiceCollection services)
         {

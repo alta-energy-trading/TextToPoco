@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using TextToPoco.Core;
 
-namespace PocoLoco
+namespace CsvToPoco
 {
     public class Cleaner : IPocoLocoCleaner
     {

@@ -1,19 +1,18 @@
-using CsvToPoco.Tests.Fakes;
+using PocoLoco.Tests.Fakes;
 using System.Collections.Generic;
 using System.Linq;
 using CsvToPoco;
-using TextToPoco.Services;
 using Xunit;
 
 namespace CsvToPoco.Tests
 {
-    public class CsvToPocoTests
+    public class PocoLocoCleanerTests
     {
         [Fact]
-        public void Can_Convert_Csv_To_Poco()
+        public void Can_Poco_Loco_Clean()
         {
-            FakeImporterService importer = new FakeImporterService();
-            FakeDbContext dbContext = new FakeDbContext();
+            Cleaner cleaner = new Cleaner(new CleanerService());
+            FakeDbContext context = new FakeDbContext();
 
             List<FakeDirtyObject> entities = Enumerable.Range(1, 3)
                 .Select(i => new FakeDirtyObject
@@ -23,8 +22,9 @@ namespace CsvToPoco.Tests
                 })
                 .ToList();
 
-            var sut = new Importer(importer);
-            sut.Run<FakeDirtyObject>(dbContext, new CsvToPocoArgs());
+            var clientCleaner = new FakeClientCleanerService();
+
+            cleaner.Clean<FakeDirtyObject, FakeCleanObject>(context, entities, clientCleaner, PersistActionEnum.None );
         }
     }
 }

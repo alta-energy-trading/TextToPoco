@@ -2,7 +2,7 @@
 using System.Linq;
 using System;
 using TextToPoco;
-using TextToPoco.Core;
+using CsvToPoco;
 
 namespace CsvToPoco.Tests.Fakes
 {

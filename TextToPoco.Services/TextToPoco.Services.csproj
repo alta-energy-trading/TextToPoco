@@ -3,16 +3,20 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
 <PropertyGroup>
-	<VersionPrefix>1.0.6</VersionPrefix>
+	<VersionPrefix>1.0.7</VersionPrefix>
 	<VersionSuffix></VersionSuffix>
 </PropertyGroup>
 
+<ItemGroup>
+  <PackageReference Include="EFCore.BulkExtensions" Version="5.4.2" />
+  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
+</ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\TextToPoco.Data\TextToPoco.Data.csproj" />
     <ProjectReference Include="..\TextToPoco\TextToPoco.Core.csproj" />
   </ItemGroup>
 

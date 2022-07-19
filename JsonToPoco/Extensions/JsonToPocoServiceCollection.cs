@@ -9,8 +9,6 @@ namespace JsonToPoco.Extensions
         public static IServiceCollection AddCsvToPoco(this IServiceCollection services)
         {
             services.AddScoped<IObjectifier, Objectifier>();
-            services.AddScoped<IImporter, TextImporter>();
-            services.AddScoped<ITextToPoco, Importer>();
             return services;
         }
     }

@@ -1,6 +1,6 @@
 using CsvToPoco.Tests.Fakes;
 using System.Linq;
-using TextToPoco.Core;
+using CsvToPoco;
 using TextToPoco.Services;
 using Xunit;
 
