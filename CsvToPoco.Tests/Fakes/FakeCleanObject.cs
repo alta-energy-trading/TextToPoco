@@ -1,4 +1,4 @@
-﻿using TextToPoco;
+﻿
 
 namespace CsvToPoco.Tests.Fakes
 {

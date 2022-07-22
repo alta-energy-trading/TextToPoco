@@ -1,4 +1,5 @@
 ﻿using CsvHelper.Configuration;
+using System;
 
 namespace CsvToPoco.Tests.Fakes.ClassMaps
 {
@@ -7,7 +8,7 @@ namespace CsvToPoco.Tests.Fakes.ClassMaps
         public EexAuditClassMap()
         {
             Map(m => m.Date).Name("Date");
-            Map(m => m.Time).Name("Time");
+            Map(m => m.Time).Name("Time").TypeConverter<ReducePrecisionDateTimeConverter>();
             Map(m => m.MessageType).Name("Message Type");
             Map(m => m.TTOrderID).Name("TT Order ID");
             Map(m => m.TTInstrumentID).Name("TT Instrument ID");

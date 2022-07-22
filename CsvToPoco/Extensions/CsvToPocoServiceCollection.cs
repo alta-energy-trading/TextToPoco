@@ -10,6 +10,7 @@ namespace CsvToPoco.Extensions
             services.AddScoped<IObjectifier, Objectifier>();
             services.AddScoped<IImporter, TextImporter>();
             services.AddScoped<ITextToPoco, Importer>();
+            services.AddScoped<IFileImporterService, FileImporter>();
             return services;
         }
     }

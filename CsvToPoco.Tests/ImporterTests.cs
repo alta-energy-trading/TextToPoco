@@ -1,7 +1,7 @@
 using CsvToPoco.Tests.Fakes;
 using System.Linq;
 using CsvToPoco;
-using TextToPoco.Services;
+
 using Xunit;
 
 namespace CsvToPoco.Tests

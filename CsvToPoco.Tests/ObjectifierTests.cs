@@ -9,6 +9,7 @@ namespace CsvToPoco.Tests
 {
     public class ObjectifierTests
     {
+
         [Fact]
         public void Can_Deserialize()
         {
@@ -49,7 +50,8 @@ namespace CsvToPoco.Tests
             Objectifier objectifier = new Objectifier();
             ITextToPocoArgs args = new CsvToPocoArgs
             {
-                Stream = FakeStream.FromString("Date,Time,Message Type,TT Order ID,TT Instrument ID,Product Type,Product Symbol,Maturity Date,TT Request ID,Exchange Request ID,Exchange Order ID,Exchange Link Association,Order Type,Time In Force,Expire Date,Execution Type,Order Status,Text,Reject Source,Side,Order Qty,Cum Qty,Leaves Qty,Min Qty,Last Qty,Display Qty,Refresh Qty,Exchange Order Qty,Exchange Leaves Qty,Exchange Cum Qty,Price,Last Price,Stop Price,Execution ID,Trade Date,Account,Sender Sub ID,TT Connection ID,Security Request ID,Security Definition Status,TT User ID,TT Account ID,User ID,Take Up Member,Exchange Account,Text 1,Text 3,Account Code,ComplianceID,Quote Request ID,Quote Status,Headline,TT Current User ID,IP Address,DirectElectronicAccess,TradingCapacity,LiquidityProvision,CommodityDerivIndicator,InvestmentDecision,InvestmentDecisionIsAlgo,ExecutionDecision,ExecutionDecisionIsAlgo,ClientIDCode,CustomerDefinedClientIDCode,TV TIC,TT FIX Client Order ID,TT FIX Original Client Order ID,TT Execution ID,Exchange Latency,Prompt Date\n2022 / 06 / 22, 10:28:36.391649963,NewOrderSingle,f3debca5 - 7740 - 4467 - 964f - a85805c01afd,8808206051423250592,FUT,G3BY,2022 - 12 - 08,21,1655869200174,,90213233,ORD_TYPE_LIMIT,TIME_IN_FORCE_DAY,,EXEC_TYPE_PENDING_NEW,ORD_STATUS_PENDING_NEW,,,B,2,0,2,,,,,2,0,0,91.0,,,HXWC33DVcha3V9uwU7QpZB,,G1127404,62541,1066488, , ,1125128,1194592,62541,,G1127404,,,A1,, , , , ,,Y,A,0,0,,,,N,2040,, ,,, , ,"),
+                Stream = FakeStream.FromString("Date,Time,Message Type,TT Order ID,TT Instrument ID,Product Type,Product Symbol,Maturity Date,TT Request ID,Exchange Request ID,Exchange Order ID,Exchange Link Association,Order Type,Time In Force,Expire Date,Execution Type,Order Status,Text,Reject Source,Side,Order Qty,Cum Qty,Leaves Qty,Min Qty,Last Qty,Display Qty,Refresh Qty,Exchange Order Qty,Exchange Leaves Qty,Exchange Cum Qty,Price,Last Price,Stop Price,Execution ID,Trade Date,Account,Sender Sub ID,TT Connection ID,Security Request ID,Security Definition Status,TT User ID,TT Account ID,User ID,Take Up Member,Exchange Account,Text 1,Text 3,Account Code,ComplianceID,Quote Request ID,Quote Status,Headline,TT Current User ID,IP Address,DirectElectronicAccess,TradingCapacity,LiquidityProvision,CommodityDerivIndicator,InvestmentDecision,InvestmentDecisionIsAlgo,ExecutionDecision,ExecutionDecisionIsAlgo,ClientIDCode,CustomerDefinedClientIDCode,TV TIC,TT FIX Client Order ID,TT FIX Original Client Order ID,TT Execution ID,Exchange Latency,Prompt Date\n" + 
+                "Jun22, 10:28:36.391649963,NewOrderSingle,f3debca5 - 7740 - 4467 - 964f - a85805c01afd,8808206051423250592,FUT,G3BY,2022-12-08,21,1655869200174,,90213233,ORD_TYPE_LIMIT,TIME_IN_FORCE_DAY,,EXEC_TYPE_PENDING_NEW,ORD_STATUS_PENDING_NEW,,,B,2,0,2,,,,,2,0,0,91.0,,,HXWC33DVcha3V9uwU7QpZB,,G1127404,62541,1066488, , ,1125128,1194592,62541,,G1127404,,,A1,, , , , ,,Y,A,0,0,,,,N,2040,, ,,, , ,"),
                 Delimiter = ",",
                 HasHeaders = true,
                 ClassMap = new EexAuditClassMap()
@@ -153,6 +155,25 @@ namespace CsvToPoco.Tests
             var test = result.First();
 
             Assert.True(test.Strip == new System.DateTime(2023, 4, 1));
+        }
+
+        [Fact]
+        public void Can_Deserialize_Price_Upload()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("Asof,Source,Contract Code,Name,External Id,Price Type,Price Time,Instrument,Value,Contract Date,Expiry Date,Strike,Delta,Implied Vol,Open Interest,Volume\n" + 
+                "19/07/2022,ICE,B,North Sea,254,Settlement,COB,Future,101.56,01/08/2022,,,,,600,2000"),
+                Delimiter = ",",
+                HasHeaders = true,
+            };
+
+            var result = objectifier.Deserialize<GenericQuote>(args);
+
+            var test = result.First();
+
+            Assert.True(test.Name == "North Sea");
         }
 
         [Fact]

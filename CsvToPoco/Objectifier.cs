@@ -7,6 +7,7 @@ using CsvHelper.Configuration;
 using System.Runtime.CompilerServices;
 using System.Linq;
 using CsvToPoco.CustomTypeConverters;
+using CsvHelper.TypeConversion;
 
 [assembly: InternalsVisibleTo("CsvToPoco.Tests")]
 namespace CsvToPoco
@@ -38,8 +39,7 @@ namespace CsvToPoco
             using(StreamReader reader = new StreamReader(args.Stream))
             using (var csv = new CsvReader(reader, config))
             {
-                if (csvArgs.ClassMap != null)
-                    csv.Context.RegisterClassMap(csvArgs.ClassMap);
+                ConfigureContext(csvArgs, csv);
 
                 tempList.AddRange(csv.GetRecords<T>());
                 return tempList;
@@ -60,8 +60,7 @@ namespace CsvToPoco
             using (StreamReader reader = new StreamReader(args.Stream))
             using (var csv = new CsvReader(reader, config))
             {
-                if(csvArgs.ClassMap != null)
-                    csv.Context.RegisterClassMap(csvArgs.ClassMap);
+                ConfigureContext(csvArgs, csv);
 
                 List<T> result = new List<T>();
                 foreach (var record in csv.GetRecords<T>())
@@ -75,6 +74,26 @@ namespace CsvToPoco
                 }
                 yield return result.ToList(); // return remaining records
             }
+        }
+
+        private static void ConfigureContext(CsvToPocoArgs csvArgs, CsvReader csv)
+        {
+            if (csvArgs.ClassMap != null)
+                csv.Context.RegisterClassMap(csvArgs.ClassMap);
+            var options = new TypeConverterOptions
+            {
+                Formats = new[] {
+                    "dd/MM/yyyy",
+                    "MM/dd/yyyy",
+                    "M/d/yyyy",
+                    "MMMyy",
+                    "yyyy/MM/dd",
+                    "yyyy-MM-dd",
+                    "HH:mm:ss.fffff"
+                }
+            };
+            csv.Context.TypeConverterOptionsCache.AddOptions<DateTime>(options);
+            csv.Context.TypeConverterOptionsCache.AddOptions<DateTime?>(options);
         }
 
         public bool ReadingExceptionOccurred(ReadingExceptionOccurredArgs args)

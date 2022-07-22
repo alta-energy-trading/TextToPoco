@@ -1,4 +1,4 @@
-using PocoLoco.Tests.Fakes;
+using CsvToPoco.Tests.Fakes;
 using System.Collections.Generic;
 using System.Linq;
 using CsvToPoco;
