@@ -14,5 +14,7 @@ namespace CsvToPoco
         public PersistActionEnum PersistAction { get; set; }
         public List<string> Keys { get; set; }
         public List<string> PropertiesToInclude { get; set; }
+        public List<string> AcceptedDateFormats { get; set; }
+        public List<string> SkipRowsBeginningWith { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using CsvToPoco;
 using Xunit;
+using System.Collections.Generic;
 
 namespace CsvToPoco.Tests
 {
@@ -196,6 +197,54 @@ namespace CsvToPoco.Tests
             var test = result.First();
 
             Assert.True(test.Value == null);
+        }
+
+        [Fact]
+        public void Can_Deserialize_Rystad_Timeline()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("Id|Month|Quarter|Year Month|Year|Days|QuarterYear|MonthSeriesNumber|QuarterSeriesNumber\r\n"+ 
+                    "2010101|1|1|2010-01|2010|31|2010 Q1|1|1"),
+                Delimiter = "|",
+                HasHeaders = true,
+                AcceptedDateFormats = new List<string> { "yyyy-MM" }
+            };
+
+            var result = objectifier.Deserialize<FakeTimeline>(args);
+
+            var test = result.First();
+
+            Assert.True(test.Month == 1);
+        }
+
+        [Fact]
+        public void Can_Deserialize_Eex_Option()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("# Prices/Volumes of EEX German Power (Futures-Style) Options\r\n" +
+                    "#\r\n" +
+                    "# Data type(ST);Trading Date;Creation Time\r\n" +
+                    "# Data type(PR);Product;Long Name;Underlying;Maturity;Delivery Start;Delivery End;Type;Strike;Open Price;Timestamp Open Price;High Price;Timestamp High Price;Low Price;Timestamp Low Price;Last Price;Timestamp Last Price;Settlement Price;Unit of Prices;Lot Size;Traded Lots;Number of Trades;Traded Volume;Open Interest Lots;Open Interest Volume;Unit of Volumes\r\n" +
+                    "# Data type(OT);Product;Long Name;Underlying;Maturity;Delivery Start;Delivery End;Type;Strike;Lot Size;Traded Lots;Number of Trades;Traded Volume;Unit of Volumes\r\n" +
+                    "# Data type(AL);Number of Lines\r\n" +
+                    "#\r\n" +
+                    "ST;2022-09-19;2022-09-19T19:29:19Z\r\n" +
+                    "PR;O2FM;EEX German Base Month Option (Future Style);DEBM;2022-10;2022-10-01;2022-10-31;C;300;;;;;;;;;61.336;EUR/MWh;745;;;;;;MWh\r\n" +
+                    "OT;O2FQ;EEX German Base Quarter Option (Future Style);DEBQ;2022-10;2022-10-01;2022-12-31;C;561;2209;;;;\r\n"),
+                Delimiter = ";",
+                HasHeaders = false,
+                SkipRowsBeginningWith = new List<string> { "#", "ST", "OT" }
+            };
+
+            var result = objectifier.Deserialize<FakeEexOption>(args);
+
+            var test = result.Single();
+
+            Assert.True(test.LongName == "EEX German Base Month Option (Future Style)");
         }
     }
 }

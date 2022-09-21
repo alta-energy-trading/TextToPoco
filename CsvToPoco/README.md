@@ -12,7 +12,7 @@ See how `CsvToPoco` fits in to Alta's development landscape in the [app graph](h
 
 #### Register services  
 ```
-using CsvToPoco.Extensions  
+using CsvToPoco.Extensions;  
 
 public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
@@ -30,8 +30,6 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 The DbContext in the client app needs to implement (the empty) IDbContext  
 `public class MyAppContext : DbContext, IDbContext`  
 
-If your project has a seperate core project that you want to keep free of unnecessary dependencies, there is a core project, [CsvToPoco](https://github.com/alta-energy-trading/TextToPoco/CsvToPoco) where the required interfaces are defined  
-`PM> Install-Package TextToPoco`  
 
 #### Using CsvToPoco
 The recommended usage is to get the CsvToPoco.Importer service using dependency injection, either constructor injection  

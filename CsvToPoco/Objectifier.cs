@@ -28,15 +28,9 @@ namespace CsvToPoco
             List<T> tempList = new List<T>();
 
             var csvArgs = (CsvToPocoArgs)args;
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = csvArgs.HasHeaders,                
-                Delimiter = csvArgs.Delimiter,
-                ReadingExceptionOccurred = args => ReadingExceptionOccurred(args)
-                
-            };
+            CsvConfiguration config = BuildConfig(csvArgs);
 
-            using(StreamReader reader = new StreamReader(args.Stream))
+            using (StreamReader reader = new StreamReader(args.Stream))
             using (var csv = new CsvReader(reader, config))
             {
                 ConfigureContext(csvArgs, csv);
@@ -46,17 +40,23 @@ namespace CsvToPoco
             }
         }
 
+        private CsvConfiguration BuildConfig(CsvToPocoArgs csvArgs)
+        {
+            return new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = csvArgs.HasHeaders,
+                Delimiter = csvArgs.Delimiter,
+                ReadingExceptionOccurred = args => ReadingExceptionOccurred(args),
+                ShouldSkipRecord = args => csvArgs.SkipRowsBeginningWith.Any(s => args.Record[0].StartsWith(s))
+            };
+        }
+
         public IEnumerable<IEnumerable<T>> Deserialize<T>(ITextToPocoArgs args, int batchSize) where T : class, new()
         {
             var csvArgs = (CsvToPocoArgs)args;
 
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                HasHeaderRecord = csvArgs.HasHeaders,
-                Delimiter = csvArgs.Delimiter,
-                ReadingExceptionOccurred = args => ReadingExceptionOccurred(args)
-            };
-            
+            CsvConfiguration config = BuildConfig(csvArgs);
+
             using (StreamReader reader = new StreamReader(args.Stream))
             using (var csv = new CsvReader(reader, config))
             {
@@ -80,17 +80,23 @@ namespace CsvToPoco
         {
             if (csvArgs.ClassMap != null)
                 csv.Context.RegisterClassMap(csvArgs.ClassMap);
-            var options = new TypeConverterOptions
-            {
-                Formats = new[] {
+
+            var formats = csvArgs.AcceptedDateFormats == null ?
+                new List<string> {
                     "dd/MM/yyyy",
-                    "MM/dd/yyyy",
-                    "M/d/yyyy",
+                    //"MM/dd/yyyy",
+                    //"M/d/yyyy",
                     "MMMyy",
                     "yyyy/MM/dd",
                     "yyyy-MM-dd",
+                    "yyyy-MM",
                     "HH:mm:ss.fffff"
-                }
+                } :
+                csvArgs.AcceptedDateFormats;
+
+            var options = new TypeConverterOptions
+            {
+                Formats = formats.ToArray()
             };
             csv.Context.TypeConverterOptionsCache.AddOptions<DateTime>(options);
             csv.Context.TypeConverterOptionsCache.AddOptions<DateTime?>(options);
