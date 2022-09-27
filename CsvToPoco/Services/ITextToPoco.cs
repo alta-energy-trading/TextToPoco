@@ -6,10 +6,10 @@ namespace CsvToPoco
     public interface ITextToPoco
     {
         event EventHandler<WarningEventArgs> Warning;
-        IEnumerable<IEnumerable<T>> Run<T>(IDbContext context, ITextToPocoArgs args, int batchSize) 
+        IEnumerable<IEnumerable<T>> Run<T>(IDbContext context, ITextToPocoArgs args, int batchSize, Func<T, T> update = null) 
             where T : class, new();
 
-        IEnumerable<T> Run<T>(IDbContext context, ITextToPocoArgs args)
+        IEnumerable<T> Run<T>(IDbContext context, ITextToPocoArgs args, Func<T, T> update = null)
             where T : class, new();
     }
 }

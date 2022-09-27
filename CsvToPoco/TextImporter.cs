@@ -23,11 +23,17 @@ namespace CsvToPoco
             Exceptions = warnings;
         }
 
-        public IEnumerable<IEnumerable<T>> Import<T>(IDbContext context, ITextToPocoArgs args, int batchSize) where T : class, new()
+        public IEnumerable<IEnumerable<T>> Import<T>(IDbContext context, ITextToPocoArgs args, int batchSize, Func<T, T> update = null) where T : class, new()
         {
             foreach (var batch in _objectifier.Deserialize<T>(args, batchSize))
             {
-                List<T> newList = batch.ToList();
+                List<T> newList = new List<T>();
+
+                if (update != null)
+                    newList = batch.Select(update).ToList();
+
+                else
+                    newList = batch.ToList();
 
                 switch (args.PersistAction)
                 {
@@ -52,9 +58,12 @@ namespace CsvToPoco
             RaiseWarnings(_objectifier.Exceptions);
         }
 
-        public IEnumerable<T> Import<T>(IDbContext context, ITextToPocoArgs args) where T : class, new()
+        public IEnumerable<T> Import<T>(IDbContext context, ITextToPocoArgs args, Func<T, T> update = null) where T : class, new()
         {
             var records = _objectifier.Deserialize<T>(args);
+
+            if (update != null)
+                records = records.Select(update);
 
             RaiseWarnings(_objectifier.Exceptions);
 

@@ -14,18 +14,18 @@ namespace CsvToPoco
 
         public event EventHandler<WarningEventArgs> Warning;
 
-        public IEnumerable<T> Run<T>(IDbContext context, ITextToPocoArgs args) where T : class, new()
+        public IEnumerable<T> Run<T>(IDbContext context, ITextToPocoArgs args, Func<T, T> update = null) where T : class, new()
         {
-            var entities = _importer.Import<T>(context, args);
+            var entities = _importer.Import<T>(context, args, update);
 
             RaiseWarnings(_importer.Exceptions);
 
             return entities;
         }
 
-        public IEnumerable<IEnumerable<T>> Run<T>(IDbContext context, ITextToPocoArgs args, int batchSize) where T : class, new()
+        public IEnumerable<IEnumerable<T>> Run<T>(IDbContext context, ITextToPocoArgs args, int batchSize, Func<T, T> update = null) where T : class, new()
         {
-            foreach (var batch in _importer.Import<T>(context, args, batchSize))
+            foreach (var batch in _importer.Import<T>(context, args, batchSize, update))
             {
                 yield return batch;
             }

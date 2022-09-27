@@ -15,7 +15,7 @@ namespace CsvToPoco.Tests.Fakes
             Exceptions = new List<Exception>();
         }
 
-        public IEnumerable<T> Import<T>(IDbContext context, ITextToPocoArgs args) where T : class, new()
+        public IEnumerable<T> Import<T>(IDbContext context, ITextToPocoArgs args, Func<T, T> update = null) where T : class, new()
         {
             return Enumerable.Range(1, 200000)
                 .Select(j => new FakeDirtyObject
@@ -26,7 +26,7 @@ namespace CsvToPoco.Tests.Fakes
                 .Cast<T>();
         }
 
-        public IEnumerable<IEnumerable<T>> Import<T>(IDbContext context, ITextToPocoArgs args, int batchSize) where T : class, new()
+        public IEnumerable<IEnumerable<T>> Import<T>(IDbContext context, ITextToPocoArgs args, int batchSize, Func<T, T> update = null) where T : class, new()
         {
             return Enumerable.Range(1, 2)
                 .Select(i =>
