@@ -5,6 +5,7 @@ using System.Linq;
 using CsvToPoco;
 using Xunit;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 
 namespace CsvToPoco.Tests
 {
@@ -245,6 +246,25 @@ namespace CsvToPoco.Tests
             var test = result.Single();
 
             Assert.True(test.LongName == "EEX German Base Month Option (Future Style)");
+        }
+        [Fact]
+        public void Can_Deserialize_PetLog_Movements()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("Result: ,success,Rows Returned: ,414,Error Message,none\n" +
+                    "Yuriy Kuchiev,9804033,52292,Cy,Canitis,2022-09-14,,Sabetta,Russia,Baltic Sea,Former Soviet Union,50000,422500,8.45000,Condensate,,0,,2022-09-27,Rotterdam,,,Netherlands,Europe,,,,0,,,,,W37,2022,M09,Q3,2022,W39,2022,M09,Q3,2022,0.00,2620779694,0\n"),
+                Delimiter = ",",
+                HasHeaders = false,
+                SkipRowsBeginningWith = new List<string> { "Result" }
+            };
+
+            var result = objectifier.Deserialize<Movement>(args);
+
+            var test = result.Single();
+
+            Assert.True(test.TankerName == "Yuriy Kuchiev");
         }
     }
 }

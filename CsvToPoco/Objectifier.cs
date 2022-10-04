@@ -98,6 +98,7 @@ namespace CsvToPoco
             {
                 Formats = formats.ToArray()
             };
+            csv.Context.Configuration.Mode = CsvMode.NoEscape;
             csv.Context.TypeConverterOptionsCache.AddOptions<DateTime>(options);
             csv.Context.TypeConverterOptionsCache.AddOptions<DateTime?>(options);
         }
