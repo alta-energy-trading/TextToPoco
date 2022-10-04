@@ -1,8 +1,6 @@
 using CsvToPoco.Tests.Fakes;
 using CsvToPoco.Tests.Fakes.ClassMaps;
-using System.IO;
 using System.Linq;
-using CsvToPoco;
 using Xunit;
 using System.Collections.Generic;
 
@@ -82,6 +80,29 @@ namespace CsvToPoco.Tests
             var test = result.First();
 
             Assert.Equal(true, true);
+        }
+
+
+        [Fact]
+        public void Can_Deserialize_TT_RawFills()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("Time,Date,Account,Contract,Product,Originator,CurrentUser,Price,PriceInTicks,TrigPrc,TrigPrcInTicks,FillQty,WorkQty,ExeQty,ExchOrderID,ExchTransID,ClOrderID,TTOrderID,ParentID,Fill Type,Strike,D.E.A.,ExchDate,P/F,ConnectionID,Type,P/C,P/A,ExchTime,O/C,ExchAcct,Route,ManualFill,TrdgCap,OMAOrderID,Confirmed,Exchange,B/S,Prod Type,Broker,InvestDec,ExecDec,LiqProv,C.D.I,GiveUp,Client,Modifier,TextA,TextB,TextTT,TimeSent,DealDate,DealTime,CounterParty,AlgoName,Trd Mbr,Trd Grp,Exch Trd,AcctType,OriginalDate,OriginalTime,SharedAccountName,Term,SecondaryClient,SecondaryExecutionDecisionMaker,ComplianceText,InvestDecQ,ExecDecQ,MaturityDate,Expiry,InstrumentID,ClearingDate,OrderProfile\n" +
+                "14:01:39.652, 2022-09-29, G1127408, DEBM Nov22, DEBM, LGoh, LGoh,451,45100,,,1,0,1,1.66443E+18,1.66446E+18,1.66442E+12, ca61f563-6ddc-462c-8ecb-fc056b49502e,, SINGLE_SECURITY,, Y, 2022-09-29, FILLED,1066488, LIMIT,, P, 14:01:39.652, OPEN, G1127408, Direct,, Other,, False, EEX, SELL, FUTURE, Macquarie Group,,,0,0,,2040,,, G1127408,,1.66446E+18,,,,,,,, A1, 2022-09-29, 14:01:39.647,, Nov22,,,,, Manual, 11/29/2022, DEBM Nov22,2.69435E+18,,"),
+                Delimiter = ",",
+                HasHeaders = true,
+                AcceptedDateFormats = new List<string> { "yyyy-MM-dd", " yyyy-MM-dd", "MM/dd/yyyy", " MM/dd/yyyy" },
+                ClassMap = new RawFillClassMap()
+            };
+
+            var result = objectifier.Deserialize<RawFill>(args);
+
+            var test = result.First();
+
+            Assert.Equal(" FUTURE", test.ProdType);
+            Assert.Equal("1.66443E+18", test.ExchOrderID);
         }
 
 
