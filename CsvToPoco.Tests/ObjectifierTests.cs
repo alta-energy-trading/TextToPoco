@@ -266,5 +266,21 @@ namespace CsvToPoco.Tests
 
             Assert.True(test.TankerName == "Yuriy Kuchiev");
         }
+
+        [Fact]
+        public void Can_Raise_CsvHelper_Errors()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("2022-00\n"),
+                Delimiter = ",",
+                HasHeaders = false
+            };
+
+            var result = objectifier.Deserialize<Dummy>(args);
+
+            Assert.Single(objectifier.Exceptions.Where(e => e.Message.Contains("An unexpected error occurred")));
+        }
     }
 }

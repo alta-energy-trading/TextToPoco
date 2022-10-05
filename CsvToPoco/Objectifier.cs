@@ -105,12 +105,7 @@ namespace CsvToPoco
 
         public bool ReadingExceptionOccurred(ReadingExceptionOccurredArgs args)
         {
-            if (args.Exception.InnerException != null)
-            {
-                if (!Exceptions.Contains(args.Exception.InnerException))
-                    Exceptions.Add(args.Exception.InnerException);
-            }
-            else if (!Exceptions.Contains(args.Exception))
+            if (!Exceptions.Contains(args.Exception))
                 Exceptions.Add(args.Exception);
 
             return false;
