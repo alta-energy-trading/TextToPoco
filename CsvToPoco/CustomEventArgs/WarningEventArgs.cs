@@ -5,10 +5,9 @@ namespace CsvToPoco
     public class WarningEventArgs : EventArgs
     {
         public string Message { get; set; }
-        public WarningEventArgs(string message) : base()
+        public WarningEventArgs(string fileName, string message) : base()
         {
-            Message = message;
-
+            Message = $"The File: {fileName}\n had the following error:\n {message}";
         }
     }
 }

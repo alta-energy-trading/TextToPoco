@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CsvToPoco
 {
@@ -18,7 +19,7 @@ namespace CsvToPoco
         {
             var entities = _importer.Import<T>(context, args, update);
 
-            RaiseWarnings(_importer.Exceptions);
+            RaiseWarnings(((FileStream)args.Stream).Name, _importer.Exceptions);
 
             return entities;
         }
@@ -29,7 +30,7 @@ namespace CsvToPoco
             {
                 yield return batch;
             }
-            RaiseWarnings(_importer.Exceptions);
+            RaiseWarnings(((FileStream)args.Stream).Name, _importer.Exceptions);
         }
 
         protected virtual void OnWarning(WarningEventArgs e)
@@ -43,7 +44,7 @@ namespace CsvToPoco
             handler.Invoke(this, e);
         }
 
-        private void RaiseWarnings(List<Exception> warnings)
+        private void RaiseWarnings(string fileName, List<Exception> warnings)
         {
             var beginMessage = "";
             foreach (var error in warnings)
@@ -51,7 +52,7 @@ namespace CsvToPoco
                 if (beginMessage != error.Message)
                 {
                     beginMessage = error.Message;
-                    OnWarning(new WarningEventArgs(error.Message));
+                    OnWarning(new WarningEventArgs(fileName, error.Message));
                 }
             }
         }

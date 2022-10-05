@@ -5,7 +5,7 @@
     <Authors>Alta Trading</Authors>
     <Description>Turns CSV files into POCO's, cleans and persists</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.12</Version>
+    <Version>2.0.13</Version>
   </PropertyGroup>
 
   <ItemGroup>
