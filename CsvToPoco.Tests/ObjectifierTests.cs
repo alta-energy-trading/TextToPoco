@@ -337,7 +337,7 @@ namespace CsvToPoco.Tests
         }
 
         [Fact]
-        public void Can_Deserialize_Kpler_PortCalls()
+        public void Can_Deserialize_Kpler_PortCalls_With_LF_Endings()
         {
             Objectifier objectifier = new Objectifier();
             ITextToPocoArgs args = new CsvToPocoArgs
