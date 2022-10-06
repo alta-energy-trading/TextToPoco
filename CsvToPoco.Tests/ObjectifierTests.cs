@@ -1,8 +1,6 @@
 using CsvToPoco.Tests.Fakes;
 using CsvToPoco.Tests.Fakes.ClassMaps;
-using System.IO;
 using System.Linq;
-using CsvToPoco;
 using Xunit;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
@@ -85,6 +83,29 @@ namespace CsvToPoco.Tests
             var test = result.First();
 
             Assert.Equal(true, true);
+        }
+
+
+        [Fact]
+        public void Can_Deserialize_TT_RawFills()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("Time,Date,Account,Contract,Product,Originator,CurrentUser,Price,PriceInTicks,TrigPrc,TrigPrcInTicks,FillQty,WorkQty,ExeQty,ExchOrderID,ExchTransID,ClOrderID,TTOrderID,ParentID,Fill Type,Strike,D.E.A.,ExchDate,P/F,ConnectionID,Type,P/C,P/A,ExchTime,O/C,ExchAcct,Route,ManualFill,TrdgCap,OMAOrderID,Confirmed,Exchange,B/S,Prod Type,Broker,InvestDec,ExecDec,LiqProv,C.D.I,GiveUp,Client,Modifier,TextA,TextB,TextTT,TimeSent,DealDate,DealTime,CounterParty,AlgoName,Trd Mbr,Trd Grp,Exch Trd,AcctType,OriginalDate,OriginalTime,SharedAccountName,Term,SecondaryClient,SecondaryExecutionDecisionMaker,ComplianceText,InvestDecQ,ExecDecQ,MaturityDate,Expiry,InstrumentID,ClearingDate,OrderProfile\n" +
+                " 15:35:38.526, 2022-10-05, G1127410, RP Dec22, RP, MAndersson, MAndersson, 0.87910000, 17582.0,,, 2.0, 4.0, 2.0, 5221391032311, 52687:M:1361063TN0001088, 1664733639582, 58219d52-d0e4-4162-ada5-13f90667c762,, SINGLE_SECURITY,, N, 2022-10-05, PARTIALLY_FILLED, 1429, LIMIT,, A, 15:35:38.526, CLOSE, G1127410, Direct,, Other,, False, CME, BUY, FUTURE, Macquarie Group,,,,,,, Iceberg,,,, 1664984138526808727,,,,,,,,, 2022-10-05, 15:35:38.486,, Dec22,,,,,, 12/19/2022, RP Dec22, 10649380637663073361, 2022-10-05,"),
+                Delimiter = ",",
+                HasHeaders = true,
+                AcceptedDateFormats = new List<string> { "yyyy-MM-dd", " yyyy-MM-dd", "MM/dd/yyyy", " MM/dd/yyyy" },
+                ClassMap = new RawFillClassMap()
+            };
+
+            var result = objectifier.Deserialize<RawFill>(args);
+
+            var test = result.First();
+
+            Assert.Equal(" FUTURE", test.ProdType);
+            Assert.Equal(" 5221391032311", test.ExchOrderID);
         }
 
 

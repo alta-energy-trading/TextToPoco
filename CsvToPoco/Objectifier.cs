@@ -6,7 +6,6 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using System.Runtime.CompilerServices;
 using System.Linq;
-using CsvToPoco.CustomTypeConverters;
 using CsvHelper.TypeConversion;
 
 [assembly: InternalsVisibleTo("CsvToPoco.Tests")]
