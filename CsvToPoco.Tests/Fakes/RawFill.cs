@@ -21,13 +21,13 @@ namespace CsvToPoco.Tests.Fakes
         public string Product { get; set; }
         public string Originator { get; set; }
         public string CurrentUser { get; set; }
-        public float Price { get; set; }
-        public int PriceInTicks { get; set; }
+        public float? Price { get; set; }
+        public float? PriceInTicks { get; set; }
         public float? TrigPrc { get; set; }
         public long? TrigPrcInTicks { get; set; }
-        public int FillQty { get; set; }
-        public int WorkQty { get; set; }
-        public int ExeQty { get; set; }
+        public float? FillQty { get; set; }
+        public float? WorkQty { get; set; }
+        public float? ExeQty { get; set; }
         public string ExchOrderID { get; set; }
         public string ExchTransID { get; set; }
         public string ClOrderID { get; set; }
@@ -57,10 +57,10 @@ namespace CsvToPoco.Tests.Fakes
         public string Broker { get; set; }
         public string InvestDec { get; set; }
         public string ExecDec { get; set; }
-        public float LiqProv { get; set; }
-        public float CDI { get; set; }
+        public float? LiqProv { get; set; }
+        public float? CDI { get; set; }
         public string GiveUp { get; set; }
-        public int Client { get; set; }
+        public int? Client { get; set; }
         public string Modifier { get; set; }
         public string TextA { get; set; }
         public string TextB { get; set; }
