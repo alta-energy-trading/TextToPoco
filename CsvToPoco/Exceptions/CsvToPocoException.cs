@@ -5,13 +5,18 @@ namespace CsvToPoco.Exceptions
 {
     public class CsvToPocoException : ReaderException
     {
-        public string FileName { get; set; }
-        public Exception Exception { get; set; }
-
-        public CsvToPocoException(CsvContext context, string fileName, Exception exception) : base(context, exception.Message)
+        public CsvToPocoException(CsvContext context) : base(context)
         {
-            FileName = fileName;
-            Exception = exception;
         }
+
+        public CsvToPocoException(CsvContext context, string message) : base(context, message)
+        {
+        }
+
+        public CsvToPocoException(CsvContext context, string message, Exception innerException) : base(context, message, innerException)
+        {
+        }
+
+        public string FileName { get; set; }
     }
 }
