@@ -1,13 +1,14 @@
-﻿using System;
+﻿using CsvToPoco.Exceptions;
+using System;
 
 namespace CsvToPoco
 {
     public class WarningEventArgs : EventArgs
     {
-        public string Message { get; set; }
-        public WarningEventArgs(string fileName, string message) : base()
+        public CsvToPocoException Exception { get; set; }
+        public WarningEventArgs(CsvToPocoException exception) : base()
         {
-            Message = $"The File: {fileName}\n had the following error:\n {message}";
+            Exception = exception;
         }
     }
 }

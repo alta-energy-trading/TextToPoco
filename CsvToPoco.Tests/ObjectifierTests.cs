@@ -6,6 +6,8 @@ using CsvToPoco;
 using Xunit;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using System.Reflection;
+using System.Security.Cryptography;
 
 namespace CsvToPoco.Tests
 {
@@ -150,6 +152,10 @@ namespace CsvToPoco.Tests
                 Stream = FakeStream.FromString("TRADE DATE|HUB|PRODUCT|STRIP|CONTRACT|CONTRACT TYPE|STRIKE|SETTLEMENT PRICE|NET CHANGE|EXPIRATION DATE|PRODUCT_ID\n6/8/2022|REC-CT CI|REC-CT Futures|Apr23 V22|CTT|F||37.70000|-1.29000|4/25/2023|20109\n"),
                 Delimiter = "|",
                 HasHeaders = true,
+                AcceptedDateFormats = new List<string> {
+                    "MM/dd/yyyy",
+                    "M/d/yyyy",
+                }
             };
 
             var result = objectifier.Deserialize<IceCleared>(args);
@@ -281,6 +287,31 @@ namespace CsvToPoco.Tests
             var result = objectifier.Deserialize<Dummy>(args);
 
             Assert.Single(objectifier.Exceptions.Where(e => e.Message.Contains("An unexpected error occurred")));
+        }
+
+        [Fact]
+        public void Can_Deserialize_Kpler_Trades()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("Vessel;Country (origin);Zone Origin;Installation origin;End (origin);Country (destination);Zone Destination;Installation Destination;Start (destination);Volume (bbl);Family;Group;Product;Grade;Id (Trade);Origin PortCall Id;Destination PortCall Id;Id (Voyage);Zone Origin Id;Zone Destination Id;Installation origin id;Installation Destination Id;Continent Destination;Continent Origin;Mileage;Ton Miles;Import price;Number of trades (import);Export price;Number of trades (export);Date (origin);Origin;Reload STS Partial (origin);Date (destination);Destination;Reload STS Partial (destination);Forecasted destination;Forecasted ETA;Forecasted confidence;Forecasted origin;Forecasted origin ETA;Forecasted origin confidence;Trade status;Seller (origin);Buyer (destination);Intermediaries;Subcontinent (origin);Eta (origin);Start (origin);Eta source (origin);Eta source (destination);Subcontinent (destination);Eta (destination);End (destination);Capacity (vessel m3);Vessel type;Cargo type (vessel);Id (vessel);IMO (vessel);MMSI (vessel);Charterer;Zone Canal Transit;Link1 delivery;Link1 type;Link1 seller name;Link1 seller country;Link1 buyer name;Link1 buyer country;Link2 delivery;Link2 type;Link2 seller name;Link2 seller country;Link2 buyer name;Link2 buyer country;Link3 delivery;Link3 type;Link3 seller name;Link3 seller country;Link3 buyer name;Link3 buyer country;Link4 delivery;Link4 type;Link4 seller name;Link4 seller country;Link4 buyer name;Link4 buyer country;Link5 delivery;Link5 type;Link5 seller name;Link5 seller country;Link5 buyer name;Link5 buyer country;Cargo (tons);Vessel Id 2;Vessel Id 3;Voyage Id 2;Voyage Id 3;Vessel Name 2;Vessel Name 3;Vessel IMO 2;Vessel IMO 3;Zone STS 1;Zone STS 2;Zone STS Id 1;Zone STS Id 2;Date Start STS 1;Date Start STS 2;Date End STS 1;Date End STS 2;Grade API;Grade Sulfur;Country STS 1;Country STS 2;Vessel DWT;Vessel DWT 2;Vessel DWT 3;Installation STS 1;Installation STS 2;Volume STS 1;Volume STS 2;Cargo Sources;Id (Product);Voyage Id 4;Vessel Id 4;Vessel Name 4;Vessel IMO 4;Vessel DWT 4;Zone STS 3;Zone STS Id 3;Date Start STS 3;Date End STS 3;Country STS 3;Installation STS 3;Volume STS 3;Estimated Product - Confidence;Estimated products;Estimated Products - Confidences;Vessel Type 2;Vessel Type 3;Vessel Type Alternative ;Vessel Type Alternative 2;Vessel Type Alternative 3;Vessel Type 4;Vessel Type Alternative 4;Id (Shipment);Parent Id (Shipment);TradingRegion (origin);TradingRegion (destination);Vessel Owner;Vessel Owner 2;Vessel Owner 3;Vessel Owner 4;Kpler Date (destination);Kpler Date (origin)\n" + 
+                    "Olympic Light;Saudi Arabia;Ras Tanura;;;South Korea;Ulsan;;;2116106;Dirty;Crude / Co;Crude;Arab;15372923;;;36615346;2412;2527;;;Asia;Asia;;;;;;;2022-11-23 16:37;Ras Tanura;;2022-12-29 16:37;Ulsan;;Ulsan;2022-12-29 16:37;0.99;Ras Tanura;2022-11-22 08:44;0.54;Scheduled;Aramco;KNOC,S - Oil,SK;1;Middle East;2022-11-22 08:44;;Model;Model;Eastern Asia;2022-12-29 16:37;;341557;VLCC;;81397;9424273;241330000;;;FOB;Spot;Aramco;Saudi Arabia;;;DES;Spot;;;KNOC,S - Oil,SK;;;;;;;;;;;;;;;;;;;;277894;;;;;;;;;;;;;;;;;33.35;2.11;;;317106;;;;;;;Algorithm;1092;;;;;;;;;;;;;;;;;;VLCC;;;;;6792395;;Mideast Gulf;Eastern Asia;Olympic Shipping;;;;;\n"),
+                Delimiter = ";",
+                HasHeaders = true,
+                AcceptedDateFormats = new List<string> {
+                    "dd/MM/yyyy",
+                    "yyyy-MM-dd HH:mm",
+                    "MMMyy",
+                    "yyyy/MM/dd",
+                    "yyyy-MM-dd",
+                    "yyyy-MM",
+                    "HH:mm:ss.fffff"
+                }
+            };
+        var result = objectifier.Deserialize<Trade>(args);
+        var test = result.Single();
+        Assert.True(test.Vessel == "Olympic Light");
         }
     }
 }

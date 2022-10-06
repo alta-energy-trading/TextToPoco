@@ -105,7 +105,7 @@ namespace CsvToPoco
 
         public bool ReadingExceptionOccurred(ReadingExceptionOccurredArgs args)
         {
-            if (!Exceptions.Contains(args.Exception))
+            if (!Exceptions.Any(e => e.Message == args.Exception.Message))
                 Exceptions.Add(args.Exception);
 
             return false;

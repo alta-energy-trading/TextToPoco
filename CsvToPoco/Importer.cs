@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvToPoco.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -44,15 +45,17 @@ namespace CsvToPoco
             handler.Invoke(this, e);
         }
 
-        private void RaiseWarnings(string fileName, List<Exception> warnings)
+        private void RaiseWarnings(string fileName, List<Exception> exceptions)
         {
             var beginMessage = "";
-            foreach (var error in warnings)
+            foreach (var exception in exceptions)
             {
-                if (beginMessage != error.Message)
+                if (beginMessage != exception.Message)
                 {
-                    beginMessage = error.Message;
-                    OnWarning(new WarningEventArgs(fileName, error.Message));
+                    beginMessage = exception.Message;
+                    CsvToPocoException csvToPocoException = (CsvToPocoException)exception;
+                    csvToPocoException.FileName = fileName;
+                    OnWarning(new WarningEventArgs(csvToPocoException));
                 }
             }
         }

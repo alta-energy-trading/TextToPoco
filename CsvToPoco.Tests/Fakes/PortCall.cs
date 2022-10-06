@@ -3,11 +3,15 @@ using CsvHelper.Configuration.Attributes;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace CsvToPoco
+namespace CsvToPoco.Tests.Fakes
 {
     [Table("PortCall", Schema = "Kpler")]
     public class PortCall
     {
+        [Key]
+        [Ignore]
+        public long Id { get; set; }
+
         [Name("Vessel")]
         [Column("Vessel")]
         [MaxLength(Constants.STRING_MEDIUM)]
