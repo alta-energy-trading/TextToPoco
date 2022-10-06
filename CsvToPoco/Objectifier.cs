@@ -65,14 +65,16 @@ namespace CsvToPoco
                 List<T> result = new List<T>();
                 foreach (var record in csv.GetRecords<T>())
                 {
-                    result.Add(record);
+                    if(record != null)
+                        result.Add(record);
                     if (result.Count == batchSize)
                     {
                         yield return result.ToList();
                         result.Clear();
                     }
                 }
-                yield return result.ToList(); // return remaining records
+                if(result.Any())
+                    yield return result.ToList(); // return remaining records
             }
         }
 

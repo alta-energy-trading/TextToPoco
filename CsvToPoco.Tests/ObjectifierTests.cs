@@ -310,9 +310,39 @@ namespace CsvToPoco.Tests
                     "HH:mm:ss.fffff"
                 }
             };
-        var result = objectifier.Deserialize<Trade>(args);
-        var test = result.Single();
-        Assert.True(test.Vessel == "Olympic Light");
+            var result = objectifier.Deserialize<Trade>(args);
+            var test = result.Single();
+            Assert.True(test.Vessel == "Olympic Light");
+        }
+
+        [Fact]
+        public void Can_Deserialize_Kpler_PortCalls()
+        {
+            Objectifier objectifier = new Objectifier();
+            ITextToPocoArgs args = new CsvToPocoArgs
+            {
+                Stream = FakeStream.FromString("Forecasted;Confidence;Id (portCall);Vessel;Location;Installation;zone;Country;ETA;Start;End;Family;Group;Product;Grade;Volume (m3);Volume (bbl);Cargo (tons);Charterer;Reexport;PartialCargo;Ship to ship;IMO (vessel);MMSI (vessel);Capacity (m3);Cargo type (vessel);Vessel type;Id (vessel);Id (installation);Id (zone);Type (installation);SubContinent;Continent;Storage capacity (installation);Status (installation);Id (voyage);Grade API;Grade Sulfur;Vessel Type Alternative\n" +
+                    "false;;366084634;Bouboulina;Ceyhan;;Ceyhan;Turkey;2023-01-01 19:00;;;Dirty;Crude/Co;Crude;;171353.0;1077777;141537;;false;false;false;9298753;240463000;173962;;Suezmax;74174;;2457;;Eastern Europe;Europe;;;36608788;;;\n" +
+                    "true;;366017613;La Lobe;Ebome;Ebome;Ebome;Cameroon;2023-01-01 00:00;;;Dirty;Crude/Co;Crude;Ebome;74753.0;470182;64661;;false;false;false;7924932;256563000;75891;;Panamax;110707;1581;1267;Crude Oil Production;Western Africa;Africa;;Active;36582562;32.1;0.35;\n"),
+                Delimiter = ";",
+                HasHeaders = true,
+                AcceptedDateFormats = new List<string> {
+                    "dd/MM/yyyy",
+                    "yyyy-MM-dd HH:mm",
+                    "MMMyy",
+                    "yyyy/MM/dd",
+                    "yyyy-MM-dd",
+                    "yyyy-MM",
+                    "HH:mm:ss.fffff"
+                }
+            };
+            var result = objectifier.Deserialize<PortCall>(args, 1).ToList();
+            
+            Assert.Collection(result,
+                i => Assert.Collection(i,
+                    j => Assert.False(j.Forecasted)),
+                i => Assert.Collection(i,
+                    j => Assert.True(j.Forecasted)));
         }
     }
 }
